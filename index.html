@@ -3,47 +3,96 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Antwerpen Namaz Vakitleri</title>
+<title>Namaz Vakitleri</title>
 <style>
   :root { --bg:#0e1624; --card:#1d2a3f; --muted:#aab3c5; --accent:#c9a4ff; }
-  html,body{margin:0;padding:0;background:var(--bg);color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  .wrap{max-width:430px;margin:24px auto;padding:8px 16px}
-  h1{font-size:20px;font-weight:700;text-align:center;margin:0 0 16px}
+  body{margin:0;background:var(--bg);color:#fff;font-family:system-ui,Arial,sans-serif}
+  .wrap{max-width:540px;margin:24px auto;padding:0 16px}
+  h1{text-align:center;font-size:22px;margin:0 0 16px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px}
+  .field{display:flex;align-items:center;gap:6px;background:#20314d;border:1px solid #2c405f;padding:6px 10px;border-radius:10px}
+  .lbl{color:var(--muted);font-size:13px}
+  .sel{background:transparent;border:none;color:#fff;outline:none;font-size:14px}
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
   .card{background:var(--card);border-radius:14px;padding:18px;text-align:center}
-  .lbl{display:block;color:var(--muted);font-size:14px;margin-bottom:6px;letter-spacing:.2px}
-  .val{font-size:26px;font-weight:800}
+  .tlabel{display:block;color:var(--muted);font-size:14px;margin-bottom:6px}
+  .tval{font-size:26px;font-weight:700}
   .date{margin:18px 0 6px;text-align:center;color:var(--accent);font-weight:600}
   .fine{margin:0;text-align:center;color:var(--muted);font-size:12px}
   .err{color:#ffb3b3;text-align:center;margin-top:16px}
-  .bar{display:flex;gap:8px;justify-content:center;margin:14px 0}
-  .sel{appearance:none;background:#20314d;border:1px solid #2c405f;color:#fff;padding:8px 10px;border-radius:10px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Antwerpen Namaz Vakitleri</h1>
+  <h1>Namaz Vakitleri</h1>
 
-  <!-- (İsteğe bağlı) Hesaplama yöntemi seçimi -->
-  <div class="bar">
-    <label class="lbl" for="method" style="margin:0;padding-top:8px;">Yöntem:</label>
-    <select id="method" class="sel" title="Hesaplama yöntemi">
-      <option value="3" selected>MWL (önerilen)</option>
-      <option value="13">Diyanet benzeri*</option>
-      <option value="2">ISNA</option>
-      <option value="4">Umm al-Qura</option>
-      <option value="5">Egyptian</option>
-      <option value="1">University of Karachi</option>
-    </select>
+  <div class="toolbar">
+    <div class="field">
+      <span class="lbl">Şehir:</span>
+      <select id="city" class="sel">
+        <optgroup label="Belçika">
+          <option value="Antwerp" selected>Antwerpen</option>
+          <option value="Brussels">Brussels</option>
+          <option value="Ghent">Gent</option>
+          <option value="Leuven">Leuven</option>
+          <option value="Liege">Liège</option>
+          <option value="Hasselt">Hasselt</option>
+        </optgroup>
+        <optgroup label="Avrupa">
+          <option value="Amsterdam">Amsterdam</option>
+          <option value="Rotterdam">Rotterdam</option>
+          <option value="Berlin">Berlin</option>
+          <option value="Hamburg">Hamburg</option>
+          <option value="Paris">Paris</option>
+          <option value="Lyon">Lyon</option>
+          <option value="London">Londra</option>
+          <option value="Manchester">Manchester</option>
+          <option value="Rome">Roma</option>
+          <option value="Milan">Milano</option>
+          <option value="Madrid">Madrid</option>
+          <option value="Barcelona">Barcelona</option>
+          <option value="Vienna">Viyana</option>
+          <option value="Zurich">Zürih</option>
+          <option value="Oslo">Oslo</option>
+        </optgroup>
+        <optgroup label="Türkiye">
+          <option value="Istanbul">İstanbul</option>
+          <option value="Ankara">Ankara</option>
+          <option value="Izmir">İzmir</option>
+          <option value="Bursa">Bursa</option>
+          <option value="Adana">Adana</option>
+          <option value="Antalya">Antalya</option>
+          <option value="Gaziantep">Gaziantep</option>
+          <option value="Konya">Konya</option>
+          <option value="Kayseri">Kayseri</option>
+          <option value="Trabzon">Trabzon</option>
+          <option value="Diyarbakir">Diyarbakır</option>
+          <option value="Malatya">Malatya</option>
+          <option value="Samsun">Samsun</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="field">
+      <span class="lbl">Yöntem:</span>
+      <select id="method" class="sel">
+        <option value="3" selected>MWL (önerilen)</option>
+        <option value="13">Diyanet benzeri*</option>
+        <option value="2">ISNA</option>
+        <option value="4">Umm al-Qura</option>
+        <option value="5">Egyptian</option>
+        <option value="1">Karachi</option>
+      </select>
+    </div>
   </div>
 
-  <div class="grid" id="grid">
-    <div class="card"><span class="lbl">İmsak</span><span class="val" id="imsak">--:--</span></div>
-    <div class="card"><span class="lbl">Güneş</span><span class="val" id="gunes">--:--</span></div>
-    <div class="card"><span class="lbl">Öğle</span><span class="val" id="ogle">--:--</span></div>
-    <div class="card"><span class="lbl">İkindi</span><span class="val" id="ikindi">--:--</span></div>
-    <div class="card"><span class="lbl">Akşam</span><span class="val" id="aksam">--:--</span></div>
-    <div class="card"><span class="lbl">Yatsı</span><span class="val" id="yatsi">--:--</span></div>
+  <div class="grid">
+    <div class="card"><span class="tlabel">İmsak</span><span class="tval" id="imsak">--:--</span></div>
+    <div class="card"><span class="tlabel">Güneş</span><span class="tval" id="gunes">--:--</span></div>
+    <div class="card"><span class="tlabel">Öğle</span><span class="tval" id="ogle">--:--</span></div>
+    <div class="card"><span class="tlabel">İkindi</span><span class="tval" id="ikindi">--:--</span></div>
+    <div class="card"><span class="tlabel">Akşam</span><span class="tval" id="aksam">--:--</span></div>
+    <div class="card"><span class="tlabel">Yatsı</span><span class="tval" id="yatsi">--:--</span></div>
   </div>
 
   <div class="date" id="tarih">—</div>
@@ -52,50 +101,63 @@
 </div>
 
 <script>
-const city = "Antwerp";              // "Antwerpen" da çalışır
-const country = "Belgium";
-const tzLabel = document.getElementById("tz");
-const tarihEl = document.getElementById("tarih");
-const errEl = document.getElementById("err");
+const countryMap = {
+  "Antwerp":"Belgium","Brussels":"Belgium","Ghent":"Belgium","Leuven":"Belgium","Liege":"Belgium","Hasselt":"Belgium",
+  "Amsterdam":"Netherlands","Rotterdam":"Netherlands",
+  "Berlin":"Germany","Hamburg":"Germany",
+  "Paris":"France","Lyon":"France",
+  "London":"United Kingdom","Manchester":"United Kingdom",
+  "Rome":"Italy","Milan":"Italy",
+  "Madrid":"Spain","Barcelona":"Spain",
+  "Vienna":"Austria","Zurich":"Switzerland","Oslo":"Norway",
+  "Istanbul":"Turkey","Ankara":"Turkey","Izmir":"Turkey","Bursa":"Turkey","Adana":"Turkey","Antalya":"Turkey",
+  "Gaziantep":"Turkey","Konya":"Turkey","Kayseri":"Turkey","Trabzon":"Turkey","Diyarbakir":"Turkey",
+  "Malatya":"Turkey","Samsun":"Turkey"
+};
+
+const citySel = document.getElementById("city");
 const methodSel = document.getElementById("method");
+const tarihEl = document.getElementById("tarih");
+const tzLabel = document.getElementById("tz");
+const errEl = document.getElementById("err");
 
 function setVals(t) {
-  const id = s => document.getElementById(s);
-  id("imsak").textContent  = t.Imsak;
-  id("gunes").textContent  = t.Sunrise;
-  id("ogle").textContent   = t.Dhuhr;
-  id("ikindi").textContent = t.Asr;
-  id("aksam").textContent  = t.Maghrib;
-  id("yatsi").textContent  = t.Isha;
+  document.getElementById("imsak").textContent = t.Imsak;
+  document.getElementById("gunes").textContent = t.Sunrise;
+  document.getElementById("ogle").textContent = t.Dhuhr;
+  document.getElementById("ikindi").textContent = t.Asr;
+  document.getElementById("aksam").textContent = t.Maghrib;
+  document.getElementById("yatsi").textContent = t.Isha;
 }
 
 async function loadTimes() {
-  errEl.textContent = "";
+  errEl.textContent="";
+  const city = citySel.value;
+  const country = countryMap[city] || "Belgium";
   const method = methodSel.value;
   const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${method}`;
   try {
-    const res = await fetch(url, {cache:"no-cache"});
-    if (!res.ok) throw new Error("Ağ hatası");
+    const res = await fetch(url);
     const js = await res.json();
     const data = js.data;
     setVals(data.timings);
-    // Tarih & zaman bölgesi
-    const rd = data.date.readable;              // "12 Sep 2025"
-    const weekday = data.date.gregorian.weekday.en; // "Friday"
+
+    const rd = data.date.readable;
+    const weekday = data.date.gregorian.weekday.en;
     const trDays = {Monday:"Pazartesi",Tuesday:"Salı",Wednesday:"Çarşamba",Thursday:"Perşembe",Friday:"Cuma",Saturday:"Cumartesi",Sunday:"Pazar"};
     const months = {Jan:"Ocak",Feb:"Şubat",Mar:"Mart",Apr:"Nisan",May:"Mayıs",Jun:"Haziran",Jul:"Temmuz",Aug:"Ağustos",Sep:"Eylül",Oct:"Ekim",Nov:"Kasım",Dec:"Aralık"};
-    const [d,m,yy] = rd.split(" ");
-    tarihEl.textContent = `${d} ${months[m]} ${yy} ${trDays[weekday]||weekday}`;
+    const [d,m,y] = rd.split(" ");
+    tarihEl.textContent = `${d} ${months[m]} ${y} ${trDays[weekday]||weekday}`;
     tzLabel.textContent = `Zaman dilimi: ${data.meta.timezone}`;
   } catch(e) {
-    errEl.textContent = "Vakitler yüklenemedi. İnternet bağlantınızı veya reklam engelleyiciyi kontrol edin.";
+    errEl.textContent="Vakitler yüklenemedi.";
     console.error(e);
   }
 }
 
+citySel.addEventListener("change", loadTimes);
 methodSel.addEventListener("change", loadTimes);
 loadTimes();
-// Gün içinde sayfa açık kalsa da tazelensin:
 setInterval(loadTimes, 60*60*1000);
 </script>
 </body>
